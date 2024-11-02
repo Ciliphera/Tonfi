@@ -1,0 +1,326 @@
+<html><head><base href="." /><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TonFi bKash Add</title>
+<style>
+:root {
+    --tg-theme-bg-color: #1c2733;
+    --tg-theme-text-color: #ffffff;
+    --tg-theme-hint-color: #7d8b99;
+    --tg-theme-link-color: #64bef0;
+    --tg-theme-button-color: #50a8eb;
+    --tg-theme-button-text-color: #ffffff;
+    --tg-theme-secondary-bg-color: #232e3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    background-color: var(--tg-theme-secondary-bg-color);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.label {
+    display: block;
+    color: var(--tg-theme-hint-color);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.phone-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.country-code {
+    background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--tg-theme-hint-color);
+    font-size: 16px;
+}
+
+.phone-input {
+    flex: 1;
+    background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--tg-theme-hint-color);
+    font-size: 16px;
+}
+
+.phone-input:focus {
+    outline: none;
+    border-color: var(--tg-theme-button-color);
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+.error-message {
+    color: #ff4d4f;
+    font-size: 14px;
+    margin-top: 8px;
+    display: none;
+}
+
+.success-message {
+    color: #52c41a;
+    font-size: 14px;
+    margin-top: 8px;
+    display: none;
+}
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+}
+
+.success-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--tg-theme-bg-color);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.success-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+    animation: scaleIn 0.5s ease-out 0.3s both;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.success-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 0.6s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+}
+
+.checkmark {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <svg class="logo" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="120" cy="120" r="120" fill="#50a8eb"/>
+                <path d="M44.0001 120C44.0001 120 89.0001 98 114 90.5C139 83 176.5 70 176.5 70C176.5 70 189.5 65.5 188.5 77.5C188.5 89.5 182 141.5 178.5 166.5C175 191.5 171.5 193.5 171.5 193.5C171.5 193.5 169.5 196 165 194.5C160.5 193 127.5 172 127.5 172C127.5 172 122.5 168.5 123.5 165.5C124.5 162.5 152 137.5 152 137.5C152 137.5 154.5 135.5 152 133.5C149.5 131.5 115.5 154.5 115.5 154.5C115.5 154.5 112 156.5 107 155C102 153.5 84.0001 148 84.0001 148C84.0001 148 77.5001 144.5 88.5001 141C99.5001 137.5 167 109 167 109" stroke="white" stroke-width="12"/>
+            </svg>
+            <h1>Add Your bKash to TonFi</h1>
+        </div>
+        
+        <form id="phoneForm">
+            <div class="form-group">
+                <label class="label">Enter your bKash number</label>
+                <div class="phone-input-container">
+                    <div class="country-code">+880</div>
+                    <input type="tel" class="phone-input" placeholder="1XXXXXXXXX" maxlength="10" id="phoneNumber">
+                </div>
+                <div class="error-message" id="errorMessage">Please enter a valid Bangladeshi mobile number</div>
+                <div class="success-message" id="successMessage">Successfully verified!</div>
+            </div>
+            
+            <button type="submit" class="submit-btn ripple">Continue</button>
+        </form>
+    </div>
+    <div class="success-page" id="successPage">
+        <svg class="success-icon" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" stroke="#50a8eb" stroke-width="2"/>
+            <path class="checkmark" fill="none" stroke="#50a8eb" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <h2 class="success-title">Your bKash number has been connected to TonFi Account</h2>
+    </div>
+
+<script>
+document.getElementById('phoneForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const successPage = document.getElementById('successPage');
+    
+    // Bangladesh mobile number validation regex
+    const bdPhoneRegex = /^1[3-9]\d{8}$/;
+    
+    if (!bdPhoneRegex.test(phoneNumber)) {
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+        
+        // Shake animation for error
+        const form = document.querySelector('.form-group');
+        form.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            form.style.animation = '';
+        }, 500);
+    } else {
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'block';
+        
+        // Success animation
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.style.backgroundColor = '#52c41a';
+        submitBtn.textContent = 'Verified ✓';
+        
+        // Show success page after delay
+        setTimeout(() => {
+            document.querySelector('.container').style.display = 'none';
+            successPage.style.display = 'flex';
+        }, 1000);
+    }
+});
+
+// Add input formatting
+document.getElementById('phoneNumber').addEventListener('input', function(e) {
+    let input = e.target.value;
+    
+    // Remove any non-digit characters
+    input = input.replace(/\D/g, '');
+    
+    // Limit to 10 digits
+    if (input.length > 10) {
+        input = input.slice(0, 10);
+    }
+    
+    e.target.value = input;
+});
+
+// Add keyframe animation for shake effect
+const style = document.createElement('style');
+style.textContent = `
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(8px); }
+    50% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+    100% { transform: translateX(0); }
+}`;
+document.head.appendChild(style);
+</script>
+</body></html>
